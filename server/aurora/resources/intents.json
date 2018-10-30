@@ -1,0 +1,60 @@
+{"intents": [
+	{"tag": "greeting",
+	"patterns": ["hi", "hello"],
+	"responses": ["Hi! How can I help?", "Hi this is aurora, the BMO smart bot!"]
+	},
+	{"tag": "thanks",
+	"patterns": ["thanks", "thank you"],
+	"responses": ["Always glad to help!"]
+	},
+	{"tag": "schedule_insight",
+	 "patterns": ["available", "free"],
+	 "responses": ["Sophie has a gap in her schedule today from 2:00pm - 3:00pm"]
+	},
+	{"tag": "schedule",
+	"patterns": ["appointment", "schedule", "available"],
+	"responses": ["I have found an appointment at 3:00 pm, Monday April 23rd, would you like me to schedule this appointment?"],
+	"context_set": "confirmation",
+	"dynamic_context": {"confirm": "questionaire1", "deny": "deny_appt"}
+	},
+	{"tag": "deny_appt",
+	"responses": ["Ok, I will not book this appointment"]
+	},
+	{"tag": "confirm",
+	 "patterns": ["yes", "ok"],
+	 "responses": [],
+	 "context_set": [],
+	 "context_filter": "confirmation",
+	 "args": {"tag": "confirm"},
+	 "context_function": "trigger"
+	},
+	{"tag": "deny",
+	 "patterns": ["no"],
+	 "responses": [],
+	 "context_set": [],
+	 "context_filter": "confirmation",
+	 "args": {"tag": "deny"},
+	 "context_function": "trigger"
+	},
+	{"tag": "questionaire1",	
+	 "responses": ["what is the purpose of the meeting?"],
+	 "args": {"path": "questionaire2"},
+	 "context_set": "questionaire2"
+	},
+	{"tag": "questionaire2",	
+	 "responses": ["How long do you expect to meet?"],
+	 "args": {"path": "questionaire3"},
+	 "context_set": "questionaire3",
+	 "context_filter": "questionaire2"
+	},
+	{"tag": "questionaire3",	
+	 "responses": ["How would you rate the urgency of this meeting?"],
+	 "args": {"path": "questionaire_end"},
+	 "context_set": "questionaire_end",
+	 "context_filter": "questionaire3"
+	},
+	{"tag": "questionaire_end",	
+	 "responses": ["That's it! Your advisor will see you soon!"],
+	 "context_filter": "questionaire_end"
+	}
+]}

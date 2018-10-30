@@ -1,0 +1,31 @@
+page-aurora-chat {
+	.user_name {
+        color: #afafaf;
+    }
+    .message {
+        padding: 10px !important;
+        transition: all 250ms ease-in-out !important;
+        border-radius: 10px !important;
+        margin-bottom: 4px !important;
+    }
+    .manager_message {
+        background: color($colors, danger);
+        color: #FFF;
+    }
+    .client_message {
+        background: color($colors, primary);
+        color: #000;
+    }
+    .aurora_message {
+        background: #dcdcdc !important;
+        color: #000 !important;
+    }
+    .time {
+        color: #afafaf;
+        float: right;
+        font-size: small;
+    }
+    .message_row {
+        background-color: #fff;
+    }
+}

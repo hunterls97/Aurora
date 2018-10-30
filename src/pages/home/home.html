@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Chat with Aurora
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label stacked>Set Username</ion-label>
+    <ion-input type="text" [(ngModel)]="username" placeholder="Username"></ion-input>
+  </ion-item>
+	<ion-grid>
+		<ion-row>
+			<ion-col>
+				<button ion-button full (click)="joinChat(0)" [disabled]="username === ''">Join Chat as Client</button>
+			</ion-col>
+			<ion-col>
+				<button ion-button full color="danger" (click)="joinChat(1)" [disabled]="username === ''">Join Chat as Manager</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

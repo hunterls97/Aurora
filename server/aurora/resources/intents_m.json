@@ -1,0 +1,68 @@
+{"intents": [
+	{"tag": "greeting",
+	"patterns": ["hi", "hello"],
+	"responses": ["Hi Sophie, you have a few meetings today. Your next meeting is at 3:00pm"]
+	},
+	{"tag": "thanks",
+	"patterns": ["thanks", "thank you"],
+	"responses": ["Always glad to help!"]
+	},
+	{"tag": "meeting_who",
+	"patterns": ["who", "meeting"],
+	"responses": ["Your 3:00pm, meeting is with Jack. After that you have a meeting with Chris"],
+	"context_set": "meeting_inqury"
+	},
+	{"tag": "meeting_breif_jack",
+	"patterns": ["breif", "jack"],
+	"responses": ["Certainly! Jack is an older client who is approaching retirement. He wants to consult you to determine the best way to manage his money as he ages. He seemed interested in updating his will upon his retirement."],
+	"context_set": "jack"
+	},
+	{"tag": "meeting_jack",
+	"patterns": ["recommendation", "jack"],
+	"responses": ["Of course! It seems jack is about to retire and 70% of his peers have rated our divesting strategy service 5-stars, perhaps we should discuss strategic divesting in the meeting at the meeting?"],
+	"context_set": "confirmation",
+	"context_filter": "jack",
+	"dynamic_context": {"confirm": "prepare_agenda", "deny": "jack_solution_2"}
+	},
+	{"tag": "jack_solution_2",
+	 "responses": ["Okay, what about discussing his will? 60% of people in his age demographic have updated their will in the previous 5 years."],
+	 "context_set": "confirmation",
+	 "dynamic_context": {"confirm": "prepare_agenda", "deny": "xyz"}
+	},
+	{"tag": "meeting_breif_chris",
+	"patterns": ["breif", "chris"],
+	"responses": ["Certainly! Chris is about to graduate from university. He wants to begin investing; however, he doesn't have experience. He seemed interested in opening a TFSA and focus on long term saving."],
+	"context_set": "chris"
+	},
+	{"tag": "meeting_chris",
+	"patterns": ["recommendation", "chris"],
+	"responses": ["Of course! Since Chris is about to graduate, and is moving into a job where he will have more cash flow, perhaps we could recommend the InvestorLine 5-star program?"],
+	"context_set": "confirmation",
+	"context_filter": "chris",
+	"dynamic_context": {"confirm": "prepare_agenda", "deny": "chris_solution_2"}
+	},
+	{"tag": "chris_solution_2",
+	 "responses": ["Okay, what if we discuss debt repayment solutions? Having completed university under a student loan, Chris may be interested in how he can repay his debt."],
+	 "context_set": "confirmation",
+	 "dynamic_context": {"confirm": "prepare_agenda", "deny": "xyz"}
+	},
+	{"tag": "prepare_agenda",
+	 "responses": ["Great! I will begin preparing the agenda for this!"]
+	},
+	{"tag": "confirm",
+	 "patterns": ["yes", "ok"],
+	 "responses": [],
+	 "context_set": [],
+	 "context_filter": "confirmation",
+	 "args": {"tag": "confirm"},
+	 "context_function": "trigger"
+	},
+	{"tag": "deny",
+	 "patterns": ["no"],
+	 "responses": [],
+	 "context_set": [],
+	 "context_filter": "confirmation",
+	 "args": {"tag": "deny"},
+	 "context_function": "trigger"
+	}
+]}
